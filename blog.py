@@ -1,3 +1,4 @@
+from post import Post
 class Blog:
     
     def __init__(self, title, author):
@@ -6,10 +7,15 @@ class Blog:
         self.posts = []
     
     def __repr__(self):
-        pass
+        return (f'{self.title}'
+                f' by {self.author}'
+                f' ({len(self.posts)}'
+                f' post{'' if len(self.posts) == 1 else 's'})')
     
     def create_post(self, title, content):
-        pass
+        post = Post(title, content)
+        return post
+
     
     def json(self):
-        pass
+        return {"title": self.title, "author": self.author, "posts": self.posts}
