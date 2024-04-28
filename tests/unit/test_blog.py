@@ -24,3 +24,4 @@ class TestBlog(unittest.TestCase):
         self.assertEqual(blog.__repr__(), 'Test by Test Author (1 post)')
         self.assertEqual(blog2.__repr__(), 'My Day by Krystian (2 posts)')
 
+
