@@ -35,8 +35,14 @@ class TestBlog(TestCase):
 
         self.assertDictEqual(app.blogs[0].json(), expected)
     def test_delete_no_posts(self):
+        blog = app.blogs['Test']
         with patch('builtins.input') as mocked_input:
             with patch('builtins.print') as mocked_print:
-                blog = app.blogs['Test']
                 blog.delete_post()
                 mocked_print.assert_called_with("Index out of range")
+    def test_delete_existing_post(self):
+        blog = app.blogs['Test']
+        blog.create_post('Test Post', 'Test Content')
+        with patch('builtins.input', return_value=0) as mocked_input:
+            blog.delete_post()
+            self.assertEqual(len(blog.posts), 0)

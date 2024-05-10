@@ -15,12 +15,22 @@ class Blog:
     def create_post(self, title, content):
         post = Post(title, content)
         self.posts.append(post)
+
     def delete_post(self):
         index = int(input('Enter index of post to delete: '))
         try:
             self.posts.pop(index)
         except IndexError:
             print('Index out of range')
-    
+
+    def update_post(self, index, title, content):
+        if title == "":
+            print('Title cannot be empty')
+        if index < len(self.posts):
+            self.posts[index].title = title
+            self.posts[index].content = content
+        else:
+            print('Index out of range')
+
     def json(self):
         return {"title": self.title, "author": self.author, "posts": [post.json() for post in self.posts]}
