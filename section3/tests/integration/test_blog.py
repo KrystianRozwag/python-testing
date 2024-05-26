@@ -46,3 +46,11 @@ class TestBlog(TestCase):
         with patch('builtins.input', return_value=0) as mocked_input:
             blog.delete_post()
             self.assertEqual(len(blog.posts), 0)
+    def test_update_post(self):
+        blog = app.blogs['Test']
+        blog.create_post('Test Post', 'Test Content')
+        with patch('builtins.input', return_value=1) as mocked_input:
+            mocked_input.side_effect = {0, "Test Post", "Test Content"}
+            blog.update_post(0,'Test Post', 'Test Content')
+            self.assertEqual(blog.posts[0].title, "Test Post")
+            self.assertEqual(blog.posts[0].content, "Test Content")
