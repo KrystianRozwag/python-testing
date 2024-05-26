@@ -1,10 +1,12 @@
-import unittest
+from unittest import TestCase
+from app.app import app
+import json
 
+class TestHome(TestCase):
+    def test_home(self):
+        with app.test_client() as c:
+            resp = c.get('/')
 
-class MyTestCase(unittest.TestCase):
-    def test_something(self):
-        self.assertEqual(True, False)  # add assertion here
+            self.assertEqual(resp.status_code, 200)
+            self.assertEqual(json.loads(resp.get_data()), {'message': 'Hello World!'})
 
-
-if __name__ == '__main__':
-    unittest.main()
